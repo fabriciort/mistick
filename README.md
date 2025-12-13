@@ -1,6 +1,6 @@
-# Mistick Assessoria & Eventos
+# Tina Ribéro - Assessoria & Eventos
 
-Site de cartão de visita online moderno e elegante para **Tina Ribéro** - Mistick Assessoria & Eventos.
+Site de cartão de visita online moderno e elegante para **Tina Ribéro** - Assessoria & Eventos.
 
 ## 🌟 Funcionalidades
 
@@ -84,8 +84,8 @@ npm run build
 
 ## 📝 Licença
 
-Este projeto foi desenvolvido para Mistick Assessoria & Eventos.
+Este projeto foi desenvolvido para Tina Ribéro Assessoria & Eventos.
 
 ---
 
-Desenvolvido com ❤️ por Tina Ribéro
+Desenvolvido com ❤️

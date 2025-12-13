@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import AnimatedText from './AnimatedText'
-import { openWhatsApp, getWhatsAppLink, defaultMessages } from '../utils/whatsapp'
+import { openWhatsApp, getWhatsAppLink } from '../utils/whatsapp'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -16,6 +16,7 @@ const Contact = () => {
     eventType: '',
     message: '',
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -24,20 +25,25 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setIsSubmitting(true)
+    
     const customMessage = `Olá! Meu nome é ${formData.name}.
 ${formData.eventType ? `Tenho interesse em: ${formData.eventType}` : ''}
 ${formData.message ? `\nMensagem: ${formData.message}` : ''}
 ${formData.email ? `\nEmail: ${formData.email}` : ''}
 ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
     
-    window.open(getWhatsAppLink(customMessage), '_blank')
+    setTimeout(() => {
+      window.open(getWhatsAppLink(customMessage), '_blank')
+      setIsSubmitting(false)
+    }, 300)
   }
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Animação do formulário
       gsap.fromTo(formRef.current,
-        { y: 40, opacity: 0 },
+        { y: 30, opacity: 0 },
         {
           y: 0,
           opacity: 1,
@@ -45,7 +51,7 @@ ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
           ease: 'power3.out',
           scrollTrigger: {
             trigger: formRef.current,
-            start: 'top 80%',
+            start: 'top 85%',
             toggleActions: 'play none none reverse',
           },
         }
@@ -53,16 +59,16 @@ ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
 
       // Animação dos cards de contato
       gsap.fromTo('.contact-card',
-        { x: -30, opacity: 0 },
+        { y: 20, opacity: 0 },
         {
-          x: 0,
+          y: 0,
           opacity: 1,
-          duration: 0.6,
-          stagger: 0.15,
+          duration: 0.5,
+          stagger: 0.1,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: '.contact-cards',
-            start: 'top 80%',
+            start: 'top 85%',
             toggleActions: 'play none none reverse',
           },
         }
@@ -75,7 +81,7 @@ ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
   const contactInfo = [
     {
       icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
       ),
@@ -86,7 +92,7 @@ ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
     },
     {
       icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         </svg>
       ),
@@ -97,7 +103,7 @@ ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
     },
     {
       icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
@@ -105,7 +111,7 @@ ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
       title: 'Localização',
       value: 'São Paulo, SP',
       action: null,
-      actionLabel: 'Atendemos em toda região',
+      actionLabel: 'Atendemos toda região',
     },
   ]
 
@@ -123,21 +129,21 @@ ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
     <section
       id="contato"
       ref={sectionRef}
-      className="relative py-24 md:py-32 bg-gradient-to-b from-cream-dark to-cream overflow-hidden"
+      className="relative py-16 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-b from-cream-dark to-cream overflow-hidden"
     >
       {/* Elementos decorativos */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 right-10 w-64 h-64 rounded-full bg-gold/5 blur-3xl" />
-        <div className="absolute bottom-20 left-10 w-96 h-96 rounded-full bg-forest/5 blur-3xl" />
+        <div className="absolute top-10 right-5 sm:top-20 sm:right-10 w-32 h-32 sm:w-64 sm:h-64 rounded-full bg-gold/5 blur-3xl" />
+        <div className="absolute bottom-10 left-5 sm:bottom-20 sm:left-10 w-48 h-48 sm:w-96 sm:h-96 rounded-full bg-forest/5 blur-3xl" />
       </div>
 
       <div className="container-custom relative z-10">
         {/* Header da seção */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16">
           <AnimatedText
             as="span"
             animation="words"
-            className="font-sans text-sm tracking-[0.3em] uppercase text-gold mb-4 block"
+            className="font-sans text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] uppercase text-gold mb-3 sm:mb-4 block"
           >
             Vamos Conversar
           </AnimatedText>
@@ -146,7 +152,7 @@ ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
             as="h2"
             animation="words"
             stagger={0.04}
-            className="font-serif text-4xl md:text-5xl lg:text-6xl text-forest mb-6"
+            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-forest mb-4 sm:mb-6"
           >
             Entre em Contato
           </AnimatedText>
@@ -154,45 +160,44 @@ ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
           <AnimatedText
             as="p"
             animation="lines"
-            className="font-sans text-lg text-forest-light max-w-2xl mx-auto"
+            className="font-sans text-base sm:text-lg text-forest-light max-w-xs sm:max-w-lg md:max-w-2xl mx-auto px-2"
           >
             Estamos ansiosos para conhecer você e ajudar a criar momentos inesquecíveis.
-            Escolha a melhor forma de nos contatar.
           </AnimatedText>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 xl:gap-16">
           {/* Informações de contato */}
           <div>
-            <h3 className="font-serif text-2xl text-forest mb-8">Informações de Contato</h3>
+            <h3 className="font-serif text-xl sm:text-2xl text-forest mb-6 sm:mb-8">Informações de Contato</h3>
             
-            <div className="contact-cards space-y-4 mb-10">
+            <div className="contact-cards space-y-3 sm:space-y-4 mb-8 sm:mb-10">
               {contactInfo.map((info, index) => (
                 <div
                   key={index}
-                  className="contact-card group bg-cream rounded-xl p-6 border border-cream-dark hover:border-gold/30 hover:shadow-lg transition-all duration-300"
+                  className="contact-card group bg-cream rounded-lg sm:rounded-xl p-4 sm:p-5 md:p-6 border border-cream-dark hover:border-gold/30 hover:shadow-lg transition-all duration-300"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold flex-shrink-0 group-hover:bg-gold/20 transition-colors duration-300">
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold flex-shrink-0 group-hover:bg-gold/20 transition-colors duration-300">
                       {info.icon}
                     </div>
-                    <div className="flex-1">
-                      <h4 className="font-sans text-sm tracking-wider uppercase text-forest/60 mb-1">
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-sans text-xs sm:text-sm tracking-wider uppercase text-forest/60 mb-0.5 sm:mb-1">
                         {info.title}
                       </h4>
-                      <p className="font-serif text-xl text-forest mb-2">{info.value}</p>
+                      <p className="font-serif text-lg sm:text-xl text-forest mb-1 sm:mb-2 truncate">{info.value}</p>
                       {info.action ? (
                         <button
                           onClick={info.action}
-                          className="font-sans text-sm text-gold hover:text-gold-dark transition-colors duration-300 flex items-center gap-2"
+                          className="font-sans text-xs sm:text-sm text-gold hover:text-gold-dark transition-colors duration-300 flex items-center gap-1.5 sm:gap-2 touch-target"
                         >
                           {info.actionLabel}
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                           </svg>
                         </button>
                       ) : (
-                        <span className="font-sans text-sm text-forest/50">{info.actionLabel}</span>
+                        <span className="font-sans text-xs sm:text-sm text-forest/50">{info.actionLabel}</span>
                       )}
                     </div>
                   </div>
@@ -202,17 +207,18 @@ ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
 
             {/* Redes sociais */}
             <div>
-              <h4 className="font-sans text-sm tracking-wider uppercase text-forest/60 mb-4">
+              <h4 className="font-sans text-xs sm:text-sm tracking-wider uppercase text-forest/60 mb-3 sm:mb-4">
                 Siga-nos nas Redes
               </h4>
-              <div className="flex gap-4">
+              <div className="flex gap-3 sm:gap-4">
                 {['instagram', 'facebook', 'pinterest'].map((social) => (
                   <a
                     key={social}
                     href={`https://${social}.com/mistickeventos`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-full bg-forest flex items-center justify-center text-cream hover:bg-gold transition-colors duration-300"
+                    className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-forest flex items-center justify-center text-cream hover:bg-gold transition-colors duration-300 touch-target"
+                    aria-label={`Seguir no ${social}`}
                   >
                     {social === 'instagram' && (
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -237,15 +243,15 @@ ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
 
           {/* Formulário */}
           <div ref={formRef}>
-            <div className="bg-cream rounded-2xl p-8 border border-cream-dark shadow-xl">
-              <h3 className="font-serif text-2xl text-forest mb-2">Envie uma Mensagem</h3>
-              <p className="font-sans text-sm text-forest/60 mb-6">
+            <div className="bg-cream rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 border border-cream-dark shadow-lg sm:shadow-xl">
+              <h3 className="font-serif text-xl sm:text-2xl text-forest mb-1 sm:mb-2">Envie uma Mensagem</h3>
+              <p className="font-sans text-xs sm:text-sm text-forest/60 mb-5 sm:mb-6">
                 Preencha o formulário e entraremos em contato via WhatsApp
               </p>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
                 <div>
-                  <label htmlFor="name" className="block font-sans text-sm text-forest/70 mb-2">
+                  <label htmlFor="name" className="block font-sans text-xs sm:text-sm text-forest/70 mb-1.5 sm:mb-2">
                     Seu Nome *
                   </label>
                   <input
@@ -255,14 +261,14 @@ ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-cream-dark/50 border border-cream-dark rounded-lg font-sans text-forest placeholder:text-forest/40 focus:outline-none focus:border-gold transition-colors duration-300"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-cream-dark/50 border border-cream-dark rounded-lg font-sans text-forest placeholder:text-forest/40 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20 transition-all duration-300"
                     placeholder="Digite seu nome"
                   />
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   <div>
-                    <label htmlFor="email" className="block font-sans text-sm text-forest/70 mb-2">
+                    <label htmlFor="email" className="block font-sans text-xs sm:text-sm text-forest/70 mb-1.5 sm:mb-2">
                       E-mail
                     </label>
                     <input
@@ -271,12 +277,12 @@ ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-cream-dark/50 border border-cream-dark rounded-lg font-sans text-forest placeholder:text-forest/40 focus:outline-none focus:border-gold transition-colors duration-300"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-cream-dark/50 border border-cream-dark rounded-lg font-sans text-forest placeholder:text-forest/40 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20 transition-all duration-300"
                       placeholder="seu@email.com"
                     />
                   </div>
                   <div>
-                    <label htmlFor="phone" className="block font-sans text-sm text-forest/70 mb-2">
+                    <label htmlFor="phone" className="block font-sans text-xs sm:text-sm text-forest/70 mb-1.5 sm:mb-2">
                       Telefone
                     </label>
                     <input
@@ -285,32 +291,37 @@ ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-cream-dark/50 border border-cream-dark rounded-lg font-sans text-forest placeholder:text-forest/40 focus:outline-none focus:border-gold transition-colors duration-300"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-cream-dark/50 border border-cream-dark rounded-lg font-sans text-forest placeholder:text-forest/40 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20 transition-all duration-300"
                       placeholder="(11) 99999-9999"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="eventType" className="block font-sans text-sm text-forest/70 mb-2">
+                  <label htmlFor="eventType" className="block font-sans text-xs sm:text-sm text-forest/70 mb-1.5 sm:mb-2">
                     Tipo de Evento
                   </label>
-                  <select
-                    id="eventType"
-                    name="eventType"
-                    value={formData.eventType}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-cream-dark/50 border border-cream-dark rounded-lg font-sans text-forest focus:outline-none focus:border-gold transition-colors duration-300 appearance-none cursor-pointer"
-                  >
-                    <option value="">Selecione uma opção</option>
-                    {eventTypes.map((type) => (
-                      <option key={type} value={type}>{type}</option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="eventType"
+                      name="eventType"
+                      value={formData.eventType}
+                      onChange={handleInputChange}
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-cream-dark/50 border border-cream-dark rounded-lg font-sans text-forest focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20 transition-all duration-300 appearance-none cursor-pointer pr-10"
+                    >
+                      <option value="">Selecione uma opção</option>
+                      {eventTypes.map((type) => (
+                        <option key={type} value={type}>{type}</option>
+                      ))}
+                    </select>
+                    <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-forest/50 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block font-sans text-sm text-forest/70 mb-2">
+                  <label htmlFor="message" className="block font-sans text-xs sm:text-sm text-forest/70 mb-1.5 sm:mb-2">
                     Sua Mensagem
                   </label>
                   <textarea
@@ -318,21 +329,29 @@ ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
-                    rows={4}
-                    className="w-full px-4 py-3 bg-cream-dark/50 border border-cream-dark rounded-lg font-sans text-forest placeholder:text-forest/40 focus:outline-none focus:border-gold transition-colors duration-300 resize-none"
+                    rows={3}
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-cream-dark/50 border border-cream-dark rounded-lg font-sans text-forest placeholder:text-forest/40 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20 transition-all duration-300 resize-none"
                     placeholder="Conte-nos sobre seu evento..."
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full group relative px-8 py-4 bg-gold text-cream font-sans text-sm tracking-widest uppercase rounded-lg overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-gold/30"
+                  disabled={isSubmitting}
+                  className="w-full group relative px-6 sm:px-8 py-3 sm:py-4 bg-gold text-cream font-sans text-xs sm:text-sm tracking-widest uppercase rounded-lg overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-gold/30 disabled:opacity-70 disabled:cursor-not-allowed touch-target"
                 >
-                  <span className="relative z-10 flex items-center justify-center gap-3">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                    </svg>
-                    Enviar via WhatsApp
+                  <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
+                    {isSubmitting ? (
+                      <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                    ) : (
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                      </svg>
+                    )}
+                    {isSubmitting ? 'Enviando...' : 'Enviar via WhatsApp'}
                   </span>
                   <div className="absolute inset-0 bg-gold-dark transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100" />
                 </button>
@@ -346,4 +365,3 @@ ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
 }
 
 export default Contact
-

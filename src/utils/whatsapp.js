@@ -7,7 +7,7 @@ export const getWhatsAppLink = (message = '') => {
 }
 
 export const defaultMessages = {
-  greeting: 'Olá! Gostaria de saber mais sobre os serviços da Mistick Assessoria & Eventos.',
+  greeting: 'Olá! Gostaria de saber mais sobre os serviços da Tina Ribéro Assessoria & Eventos.',
   event: 'Olá! Tenho interesse em organizar um evento e gostaria de uma consultoria.',
   consulting: 'Olá! Gostaria de agendar uma consultoria personalizada.',
   budget: 'Olá! Gostaria de solicitar um orçamento para meu evento.',
@@ -17,4 +17,3 @@ export const openWhatsApp = (messageType = 'greeting') => {
   const message = defaultMessages[messageType] || defaultMessages.greeting
   window.open(getWhatsAppLink(message), '_blank')
 }
-

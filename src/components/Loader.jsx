@@ -12,7 +12,7 @@ const Loader = ({ onComplete }) => {
       onComplete: () => {
         gsap.to(loaderRef.current, {
           opacity: 0,
-          duration: 0.5,
+          duration: 0.4,
           ease: 'power3.out',
           onComplete,
         })
@@ -22,21 +22,21 @@ const Loader = ({ onComplete }) => {
     // Animação do logo
     tl.fromTo(logoRef.current,
       { scale: 0, rotation: -180, opacity: 0 },
-      { scale: 1, rotation: 0, opacity: 1, duration: 1, ease: 'elastic.out(1, 0.5)' }
+      { scale: 1, rotation: 0, opacity: 1, duration: 1, ease: 'elastic.out(1, 0.6)' }
     )
 
     // Animação do texto
     tl.fromTo(textRef.current,
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' },
-      '-=0.3'
+      { y: 15, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' },
+      '-=0.4'
     )
 
     // Animação da barra de progresso
     tl.fromTo(progressRef.current,
       { scaleX: 0 },
-      { scaleX: 1, duration: 1.5, ease: 'power2.inOut' },
-      '-=0.3'
+      { scaleX: 1, duration: 1.2, ease: 'power2.inOut' },
+      '-=0.2'
     )
 
     return () => tl.kill()
@@ -45,13 +45,13 @@ const Loader = ({ onComplete }) => {
   return (
     <div
       ref={loaderRef}
-      className="fixed inset-0 z-[100] bg-cream flex flex-col items-center justify-center"
+      className="fixed inset-0 z-[100] bg-cream flex flex-col items-center justify-center px-4"
     >
       {/* Logo animado */}
-      <div ref={logoRef} className="mb-8">
+      <div ref={logoRef} className="mb-6 sm:mb-8">
         <svg
           viewBox="0 0 100 50"
-          className="w-32 h-16 text-forest"
+          className="w-24 h-12 sm:w-32 sm:h-16 text-forest"
           fill="none"
         >
           <path
@@ -64,15 +64,15 @@ const Loader = ({ onComplete }) => {
       </div>
 
       {/* Nome */}
-      <div ref={textRef} className="text-center mb-8">
-        <h1 className="font-serif text-4xl tracking-wider text-forest mb-2">MISTICK</h1>
-        <p className="font-sans text-sm tracking-[0.3em] uppercase text-gold">
+      <div ref={textRef} className="text-center mb-6 sm:mb-8">
+        <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl tracking-wide text-forest mb-1 sm:mb-2">Tina Ribéro</h1>
+        <p className="font-sans text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.2em] uppercase text-gold">
           Assessoria & Eventos
         </p>
       </div>
 
       {/* Barra de progresso */}
-      <div className="w-48 h-0.5 bg-cream-dark rounded-full overflow-hidden">
+      <div className="w-32 sm:w-48 h-0.5 bg-cream-dark rounded-full overflow-hidden">
         <div
           ref={progressRef}
           className="h-full bg-gold origin-left"
@@ -84,4 +84,3 @@ const Loader = ({ onComplete }) => {
 }
 
 export default Loader
-
