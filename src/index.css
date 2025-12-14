@@ -1,16 +1,26 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cream: #FAF6F1;
-  --color-cream-dark: #F0E9E0;
-  --color-forest: #2C3E3E;
-  --color-forest-light: #3D5454;
-  --color-gold: #C4813A;
-  --color-gold-dark: #A66B2A;
-  --color-gold-light: #D4A574;
-  
+  /* Monochromatic Base */
+  --color-cream: #FFFFFF;
+  --color-cream-dark: #F5F5F5;
+  --color-mistick-black: #0A0A0A;
+  --color-mistick-charcoal: #1A1A1A;
+
+  /* Accent: Elegant Amber / Yellow-Orange */
+  --color-accent: #E59500;
+  --color-accent-dark: #C47D00;
+  --color-accent-light: #FFBD44;
+
+  /* Legacy aliases for compatibility (will be phased out) */
+  --color-gold: var(--color-accent);
+  --color-gold-dark: var(--color-accent-dark);
+  --color-gold-light: var(--color-accent-light);
+  --color-forest: var(--color-mistick-black);
+  --color-forest-light: var(--color-mistick-charcoal);
+
   --font-serif: "Cormorant Garamond", Georgia, serif;
-  --font-sans: "Jost", system-ui, sans-serif;
+  --font-sans: "Montserrat", system-ui, sans-serif;
 }
 
 * {
@@ -27,7 +37,7 @@ html {
 body {
   font-family: var(--font-sans);
   background-color: var(--color-cream);
-  color: var(--color-forest);
+  color: var(--color-mistick-black);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -35,7 +45,7 @@ body {
 
 ::selection {
   background-color: var(--color-gold);
-  color: var(--color-cream);
+  color: var(--color-mistick-black);
 }
 
 /* Scrollbar personalizada */
@@ -68,6 +78,7 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -79,6 +90,7 @@ body {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -86,19 +98,25 @@ body {
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
 }
 
 @keyframes pulse-soft {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.8;
     transform: scale(1.02);
@@ -109,6 +127,7 @@ body {
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }
@@ -191,8 +210,11 @@ textarea:focus-visible {
 }
 
 /* Melhor experiência em inputs mobile */
-input, select, textarea {
-  font-size: 16px; /* Previne zoom no iOS */
+input,
+select,
+textarea {
+  font-size: 16px;
+  /* Previne zoom no iOS */
 }
 
 /* Safe area para dispositivos com notch */

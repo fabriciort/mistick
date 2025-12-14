@@ -96,7 +96,7 @@ const About = () => {
             {/* Moldura decorativa - menor em mobile */}
             <div className="absolute -inset-2 sm:-inset-4 border-2 border-gold/20 rounded-xl sm:rounded-2xl transform rotate-2 hidden sm:block" />
             <div className="absolute -inset-2 sm:-inset-4 border-2 border-forest/10 rounded-xl sm:rounded-2xl transform -rotate-1 hidden sm:block" />
-            
+
             {/* Placeholder de imagem elegante */}
             <div className="relative bg-gradient-to-br from-forest via-forest-light to-forest rounded-xl sm:rounded-2xl aspect-[4/5] flex items-center justify-center overflow-hidden shadow-xl sm:shadow-2xl">
               {/* Padrão decorativo */}
@@ -110,21 +110,14 @@ const About = () => {
               </svg>
 
               <div className="text-center text-cream p-6 sm:p-8 relative z-10">
-                <svg
-                  viewBox="0 0 100 50"
-                  className="w-16 h-8 sm:w-24 sm:h-12 mx-auto mb-4 sm:mb-6 text-gold"
-                  fill="none"
-                >
-                  <path
-                    d="M50 25C50 17 43 10 33 10C23 10 15 17 15 25C15 33 23 40 33 40C43 40 50 33 50 25C50 33 57 40 67 40C77 40 85 33 85 25C85 17 77 10 67 10C57 10 50 17 50 25Z"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                <h3 className="font-serif text-2xl sm:text-3xl mb-1 sm:mb-2">Tina Ribéro</h3>
+                <div className="w-16 h-8 sm:w-24 sm:h-12 mx-auto mb-4 sm:mb-6 text-gold">
+                  {/* Reuse MistickLogo style content here or import if possible, for now just text or simple svg replacement */}
+                  {/* Simplified logo placeholder since we can't easily import MistickLogo inside the card without refactoring too much - sticking to text for the card */}
+                  <span className="font-serif text-4xl">M</span>
+                </div>
+                <h3 className="font-serif text-2xl sm:text-3xl mb-1 sm:mb-2 text-cream">Daniele Ribeiro</h3>
                 <p className="font-sans text-xs sm:text-sm tracking-widest uppercase text-gold">
-                  Fundadora & Consultora
+                  Founder & Creative Director
                 </p>
               </div>
 
@@ -140,7 +133,7 @@ const About = () => {
               animation="words"
               className="font-sans text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] uppercase text-gold mb-3 sm:mb-4 block"
             >
-              Conheça Nossa História
+              A Arte do Encontro
             </AnimatedText>
 
             <AnimatedText
@@ -149,7 +142,7 @@ const About = () => {
               stagger={0.04}
               className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl text-forest mb-6 sm:mb-8 leading-tight"
             >
-              Elegância em cada detalhe
+              Mistick: Onde a magia acontece
             </AnimatedText>
 
             <AnimatedText
@@ -157,9 +150,9 @@ const About = () => {
               animation="lines"
               className="font-sans text-base sm:text-lg text-forest-light leading-relaxed mb-4 sm:mb-6"
             >
-              Olá! Sou Tina Ribéro, fundadora da Tina Ribéro Assessoria & Eventos. 
-              Com paixão por criar experiências memoráveis, dedico-me a transformar 
-              seus sonhos em realidade, cuidando de cada detalhe com elegância e sofisticação.
+              Olá! Sou Daniele Ribeiro, a mente criativa por trás da Mistick.
+              Minha paixão é orquestrar momentos que transcendem o comum,
+              criando experiências que ficam marcadas na alma.
             </AnimatedText>
 
             <AnimatedText
@@ -167,9 +160,9 @@ const About = () => {
               animation="lines"
               className="font-sans text-base sm:text-lg text-forest-light leading-relaxed mb-8 sm:mb-10"
             >
-              Acredito que cada evento é único, assim como cada pessoa. Por isso, 
-              ofereço consultoria personalizada, entendendo suas necessidades e 
-              desejos para criar momentos verdadeiramente especiais e inesquecíveis.
+              Cada celebração é um ritual único. Na Mistick, unimos elegância,
+              precisão e uma pitada de encanto para contar a sua história
+              de forma autêntica e inesquecível.
             </AnimatedText>
 
             {/* Features - mais compacto em mobile */}

@@ -8,6 +8,7 @@ import About from './components/About'
 import Services from './components/Services'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import Story from './components/Story'
 import WhatsAppButton from './components/WhatsAppButton'
 import Loader from './components/Loader'
 
@@ -41,12 +42,13 @@ function App() {
   return (
     <>
       {isLoading && <Loader onComplete={handleLoadComplete} />}
-      
+
       <div className={`transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
         <Header />
         <main>
           <Hero />
           <About />
+          <Story />
           <Services />
           <Contact />
         </main>
