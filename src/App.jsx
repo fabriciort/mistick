@@ -46,7 +46,7 @@ function App() {
       <div className={`transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
         <Header />
         <main>
-          <Hero />
+          <Hero isLoading={isLoading} />
           <About />
           <Story />
           <Services />

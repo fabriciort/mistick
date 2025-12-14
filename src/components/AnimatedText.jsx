@@ -50,7 +50,7 @@ const AnimatedText = ({
     }
 
     if (triggerOnScroll) {
-      gsap.fromTo(elements, 
+      gsap.fromTo(elements,
         { y: animationConfig.y, opacity: 0 },
         {
           y: 0,
@@ -86,7 +86,7 @@ const AnimatedText = ({
   }, [animation, stagger, duration, delay, triggerOnScroll])
 
   return (
-    <Component ref={containerRef} className={className}>
+    <Component ref={containerRef} className={`${className} [&>span]:inline-block`}>
       {children}
     </Component>
   )
