@@ -2,15 +2,17 @@ import { useState, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import Header from './components/Header'
-import Hero from './components/Hero'
-import About from './components/About'
-import Services from './components/Services'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
-import Story from './components/Story'
-import WhatsAppButton from './components/WhatsAppButton'
-import Loader from './components/Loader'
+import Header from '@/widgets/layout/Header'
+import Footer from '@/widgets/layout/Footer'
+import WhatsAppButton from '@/widgets/interactive/WhatsAppButton'
+
+import Hero from '@/sections/Hero'
+import About from '@/sections/About'
+import Story from '@/sections/Story'
+import Services from '@/sections/Services'
+import Contact from '@/sections/Contact'
+
+import Loader from '@/shared/ui/Loader'
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger)
