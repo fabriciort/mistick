@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import AnimatedText from './AnimatedText'
+import { AnimatedText } from '../atoms'
 import { openWhatsApp, getWhatsAppLink } from '../utils/whatsapp'
 
 gsap.registerPlugin(ScrollTrigger)

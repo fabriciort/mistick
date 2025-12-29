@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import AnimatedText from './AnimatedText'
-import MistickLogo from './MistickLogo'
+import { AnimatedText, MistickLogo } from '../atoms'
 import { openWhatsApp } from '../utils/whatsapp'
 
 // Import hero background image
