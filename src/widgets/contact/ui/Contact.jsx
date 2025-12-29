@@ -1,10 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import AnimatedText from './AnimatedText'
-import { openWhatsApp, getWhatsAppLink } from '../utils/whatsapp'
-
-gsap.registerPlugin(ScrollTrigger)
+import { gsap } from '@/shared/lib/gsap'
+import AnimatedText from '@/shared/ui/AnimatedText'
+import { openWhatsApp, openWhatsAppWithMessage } from '@/features/whatsapp'
 
 const Contact = () => {
   const sectionRef = useRef(null)
@@ -34,7 +31,7 @@ ${formData.email ? `\nEmail: ${formData.email}` : ''}
 ${formData.phone ? `\nTelefone: ${formData.phone}` : ''}`
     
     setTimeout(() => {
-      window.open(getWhatsAppLink(customMessage), '_blank')
+      openWhatsAppWithMessage(customMessage)
       setIsSubmitting(false)
     }, 300)
   }

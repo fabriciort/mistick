@@ -1,8 +1,5 @@
 import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import { gsap } from './gsap'
 
 export const useScrollAnimation = (options = {}) => {
   const ref = useRef(null)
@@ -48,7 +45,7 @@ export const useScrollAnimation = (options = {}) => {
 
     const anim = animations[animation] || animations.fadeUp
 
-    gsap.fromTo(element, anim.from, {
+    const tween = gsap.fromTo(element, anim.from, {
       ...anim.to,
       duration,
       delay,
@@ -62,9 +59,10 @@ export const useScrollAnimation = (options = {}) => {
     })
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+      tween.scrollTrigger?.kill()
+      tween.kill()
     }
-  }, [options])
+  }, [options.animation, options.duration, options.delay, options.start, options.markers])
 
   return ref
 }
@@ -76,7 +74,7 @@ export const useParallax = (speed = 0.5) => {
     const element = ref.current
     if (!element) return
 
-    gsap.to(element, {
+    const tween = gsap.to(element, {
       yPercent: speed * 100,
       ease: 'none',
       scrollTrigger: {
@@ -88,7 +86,8 @@ export const useParallax = (speed = 0.5) => {
     })
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+      tween.scrollTrigger?.kill()
+      tween.kill()
     }
   }, [speed])
 

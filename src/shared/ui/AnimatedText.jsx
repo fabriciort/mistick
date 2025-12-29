@@ -1,8 +1,5 @@
 import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import { gsap } from '@/shared/lib/gsap'
 
 const AnimatedText = ({
   children,
@@ -20,18 +17,18 @@ const AnimatedText = ({
     const container = containerRef.current
     if (!container) return
 
+    const originalText = container.textContent || ''
     let elements = []
+    let tween
 
     if (animation === 'words') {
-      const text = container.textContent
-      container.innerHTML = text
+      container.innerHTML = originalText
         .split(' ')
         .map(word => `<span class="inline-block overflow-hidden"><span class="inline-block">${word}</span></span>`)
         .join(' ')
       elements = container.querySelectorAll('span > span')
     } else if (animation === 'chars') {
-      const text = container.textContent
-      container.innerHTML = text
+      container.innerHTML = originalText
         .split('')
         .map(char => char === ' ' ? ' ' : `<span class="inline-block overflow-hidden"><span class="inline-block">${char}</span></span>`)
         .join('')
@@ -50,7 +47,7 @@ const AnimatedText = ({
     }
 
     if (triggerOnScroll) {
-      gsap.fromTo(elements,
+      tween = gsap.fromTo(elements,
         { y: animationConfig.y, opacity: 0 },
         {
           y: 0,
@@ -67,7 +64,7 @@ const AnimatedText = ({
         }
       )
     } else {
-      gsap.fromTo(elements,
+      tween = gsap.fromTo(elements,
         { y: animationConfig.y, opacity: 0 },
         {
           y: 0,
@@ -81,7 +78,9 @@ const AnimatedText = ({
     }
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+      tween?.scrollTrigger?.kill()
+      tween?.kill()
+      if (animation !== 'lines') container.textContent = originalText
     }
   }, [animation, stagger, duration, delay, triggerOnScroll])
 

@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import MistickLogo from './MistickLogo'
-
-gsap.registerPlugin(ScrollTrigger)
+import { gsap } from '@/shared/lib/gsap'
+import MistickLogo from '@/shared/ui/brand/MistickLogo'
 
 const Header = () => {
   const headerRef = useRef(null)

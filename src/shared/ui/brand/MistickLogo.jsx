@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
+import { gsap } from '@/shared/lib/gsap'
 
 export default function MistickLogo({ className = "w-full max-w-lg", delay = 0, variant = "dark" }) {
     const containerRef = useRef(null)
@@ -54,7 +54,7 @@ export default function MistickLogo({ className = "w-full max-w-lg", delay = 0, 
         }, containerRef)
 
         return () => ctx.revert()
-    }, [delay, currentColors])
+    }, [delay, variant])
 
     return (
         <div ref={containerRef} className={className}>

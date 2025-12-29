@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
-import { openWhatsApp } from '../utils/whatsapp'
+import { gsap } from '@/shared/lib/gsap'
+import { openWhatsApp } from '../lib/whatsapp'
 
 const WhatsAppButton = () => {
   const buttonRef = useRef(null)
@@ -22,31 +22,39 @@ const WhatsAppButton = () => {
   useEffect(() => {
     if (!buttonRef.current) return
 
+    let tween
+    let tooltipTimeout
+    let hideTooltipTimeout
+
     if (isVisible) {
-      gsap.fromTo(buttonRef.current,
+      tween = gsap.fromTo(buttonRef.current,
         { scale: 0, opacity: 0 },
         { scale: 1, opacity: 1, duration: 0.4, ease: 'back.out(1.7)' }
       )
 
       // Mostrar tooltip uma vez após o botão aparecer (apenas desktop)
       if (!hasInteracted && window.innerWidth >= 768) {
-        const timeout = setTimeout(() => {
+        tooltipTimeout = setTimeout(() => {
           setShowTooltip(true)
-          setTimeout(() => {
+          hideTooltipTimeout = setTimeout(() => {
             setShowTooltip(false)
             setHasInteracted(true)
           }, 4000)
         }, 2000)
-
-        return () => clearTimeout(timeout)
       }
     } else {
-      gsap.to(buttonRef.current, {
+      tween = gsap.to(buttonRef.current, {
         scale: 0,
         opacity: 0,
         duration: 0.3,
         ease: 'power3.in',
       })
+    }
+
+    return () => {
+      tween?.kill()
+      if (tooltipTimeout) clearTimeout(tooltipTimeout)
+      if (hideTooltipTimeout) clearTimeout(hideTooltipTimeout)
     }
   }, [isVisible, hasInteracted])
 

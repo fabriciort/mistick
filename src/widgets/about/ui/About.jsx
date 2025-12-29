@@ -1,10 +1,7 @@
 import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import AnimatedText from './AnimatedText'
-import { openWhatsApp } from '../utils/whatsapp'
-
-gsap.registerPlugin(ScrollTrigger)
+import { gsap } from '@/shared/lib/gsap'
+import AnimatedText from '@/shared/ui/AnimatedText'
+import { openWhatsApp } from '@/features/whatsapp'
 
 const About = () => {
   const sectionRef = useRef(null)

@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import MistickLogo from './MistickLogo'
-
-gsap.registerPlugin(ScrollTrigger)
+import { gsap } from '@/shared/lib/gsap'
+import MistickLogo from '@/shared/ui/brand/MistickLogo'
+import { getWhatsAppLink } from '@/features/whatsapp'
 
 const Footer = () => {
   const footerRef = useRef(null)
@@ -119,7 +117,7 @@ const Footer = () => {
             {[
               { name: 'instagram', url: 'https://instagram.com/mistickbydaniele' },
               { name: 'facebook', url: 'https://facebook.com/mistickbydaniele' },
-              { name: 'whatsapp', url: 'https://wa.me/5511999999999' },
+              { name: 'whatsapp', url: getWhatsAppLink() },
             ].map((social) => (
               <a
                 key={social.name}

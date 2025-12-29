@@ -3,11 +3,11 @@ import { flushSync } from 'react-dom'
 import { X, Heart, Star, Sparkles, User, Camera } from 'lucide-react'
 
 // Import images
-import imgProfessional from '../assets/images/story/portrait-professional.jpg'
-import imgCasual from '../assets/images/story/portrait-casual.jpg'
-import imgDedication from '../assets/images/story/dedication-bride-dress.jpg'
-import imgDecor from '../assets/images/story/event-decor-selfie.jpg'
-import imgCouple from '../assets/images/story/wedding-couple-client.jpg'
+import imgProfessional from '@/shared/assets/images/story/portrait-professional.jpg'
+import imgCasual from '@/shared/assets/images/story/portrait-casual.jpg'
+import imgDedication from '@/shared/assets/images/story/dedication-bride-dress.jpg'
+import imgDecor from '@/shared/assets/images/story/event-decor-selfie.jpg'
+import imgCouple from '@/shared/assets/images/story/wedding-couple-client.jpg'
 
 const stories = [
     {

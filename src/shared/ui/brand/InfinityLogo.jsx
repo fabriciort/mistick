@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
+import { gsap } from '@/shared/lib/gsap'
 
 const InfinityLogo = ({ className = '', animated = true, size = 'md' }) => {
   const pathRef = useRef(null)
@@ -24,12 +24,13 @@ const InfinityLogo = ({ className = '', animated = true, size = 'md' }) => {
       strokeDashoffset: length,
     })
 
-    gsap.to(path, {
+    const tween = gsap.to(path, {
       strokeDashoffset: 0,
       duration: 2.5,
       ease: 'power2.inOut',
       delay: 0.5,
     })
+    return () => tween.kill()
   }, [animated])
 
   return (
