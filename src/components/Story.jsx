@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { flushSync } from 'react-dom'
 import { X, Heart, Star, Sparkles, User, Camera } from 'lucide-react'
 

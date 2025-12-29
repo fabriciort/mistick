@@ -1,9 +1,24 @@
 import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { gsap, ScrollTrigger, defaultScrollTrigger } from '@shared/lib/gsap'
 
-gsap.registerPlugin(ScrollTrigger)
-
+/**
+ * AnimatedText Component
+ * 
+ * Componente para animar texto com diferentes modos:
+ * - words: anima cada palavra separadamente
+ * - chars: anima cada caractere
+ * - lines: anima o bloco inteiro
+ * 
+ * @param {Object} props
+ * @param {React.ReactNode} props.children - Texto a ser animado
+ * @param {string} props.className - Classes CSS
+ * @param {'words'|'chars'|'lines'} props.animation - Tipo de animação
+ * @param {number} props.stagger - Delay entre elementos
+ * @param {number} props.duration - Duração da animação
+ * @param {number} props.delay - Delay inicial
+ * @param {string} props.as - Tag HTML a ser renderizada
+ * @param {boolean} props.triggerOnScroll - Se anima no scroll ou imediatamente
+ */
 const AnimatedText = ({
   children,
   className = '',
@@ -27,14 +42,21 @@ const AnimatedText = ({
       const text = container.textContent
       container.innerHTML = text
         .split(' ')
-        .map(word => `<span class="inline-block overflow-hidden"><span class="inline-block">${word}</span></span>`)
+        .map(
+          (word) =>
+            `<span class="inline-block overflow-hidden"><span class="inline-block">${word}</span></span>`
+        )
         .join(' ')
       elements = container.querySelectorAll('span > span')
     } else if (animation === 'chars') {
       const text = container.textContent
       container.innerHTML = text
         .split('')
-        .map(char => char === ' ' ? ' ' : `<span class="inline-block overflow-hidden"><span class="inline-block">${char}</span></span>`)
+        .map((char) =>
+          char === ' '
+            ? ' '
+            : `<span class="inline-block overflow-hidden"><span class="inline-block">${char}</span></span>`
+        )
         .join('')
       elements = container.querySelectorAll('span > span')
     } else if (animation === 'lines') {
@@ -44,14 +66,11 @@ const AnimatedText = ({
     const animationConfig = {
       y: animation === 'lines' ? 40 : 60,
       opacity: 0,
-      duration,
-      stagger,
-      delay,
-      ease: 'power3.out',
     }
 
     if (triggerOnScroll) {
-      gsap.fromTo(elements,
+      gsap.fromTo(
+        elements,
         { y: animationConfig.y, opacity: 0 },
         {
           y: 0,
@@ -62,13 +81,13 @@ const AnimatedText = ({
           ease: 'power3.out',
           scrollTrigger: {
             trigger: container,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
+            ...defaultScrollTrigger,
           },
         }
       )
     } else {
-      gsap.fromTo(elements,
+      gsap.fromTo(
+        elements,
         { y: animationConfig.y, opacity: 0 },
         {
           y: 0,
@@ -82,7 +101,11 @@ const AnimatedText = ({
     }
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (trigger.vars?.trigger === container) {
+          trigger.kill()
+        }
+      })
     }
   }, [animation, stagger, duration, delay, triggerOnScroll])
 
@@ -94,4 +117,3 @@ const AnimatedText = ({
 }
 
 export default AnimatedText
-

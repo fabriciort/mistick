@@ -1,0 +1,20 @@
+/**
+ * Main Stylesheet
+ * 
+ * Ponto de entrada para todos os estilos da aplicação.
+ * Importa Tailwind e módulos CSS organizados.
+ */
+
+@import "tailwindcss";
+
+/* Theme & Design Tokens */
+@import "./theme.css";
+
+/* Base Reset & Global Styles */
+@import "./base.css";
+
+/* Animation Classes */
+@import "./animations.css";
+
+/* Custom Utilities */
+@import "./utilities.css";

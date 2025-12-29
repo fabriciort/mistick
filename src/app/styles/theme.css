@@ -1,0 +1,29 @@
+/**
+ * Theme CSS Variables
+ * 
+ * Design tokens centralizados para consistência visual.
+ */
+
+@theme {
+  /* Monochromatic Base */
+  --color-cream: #FFFFFF;
+  --color-cream-dark: #F5F5F5;
+  --color-mistick-black: #0A0A0A;
+  --color-mistick-charcoal: #1A1A1A;
+
+  /* Accent: Elegant Amber / Yellow-Orange */
+  --color-accent: #E59500;
+  --color-accent-dark: #C47D00;
+  --color-accent-light: #FFBD44;
+
+  /* Legacy aliases for compatibility */
+  --color-gold: var(--color-accent);
+  --color-gold-dark: var(--color-accent-dark);
+  --color-gold-light: var(--color-accent-light);
+  --color-forest: var(--color-mistick-black);
+  --color-forest-light: var(--color-mistick-charcoal);
+
+  /* Typography */
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Montserrat", system-ui, sans-serif;
+}
