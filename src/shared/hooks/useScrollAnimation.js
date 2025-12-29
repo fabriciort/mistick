@@ -1,23 +1,20 @@
 import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import { gsap } from '@/shared/lib/gsap'
 
 export const useScrollAnimation = (options = {}) => {
   const ref = useRef(null)
 
+  const {
+    animation = 'fadeUp',
+    duration = 1,
+    delay = 0,
+    start = 'top 85%',
+    markers = false,
+  } = options
+
   useEffect(() => {
     const element = ref.current
     if (!element) return
-
-    const {
-      animation = 'fadeUp',
-      duration = 1,
-      delay = 0,
-      start = 'top 85%',
-      markers = false,
-    } = options
 
     const animations = {
       fadeUp: {
@@ -48,23 +45,23 @@ export const useScrollAnimation = (options = {}) => {
 
     const anim = animations[animation] || animations.fadeUp
 
-    gsap.fromTo(element, anim.from, {
-      ...anim.to,
-      duration,
-      delay,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: element,
-        start,
-        markers,
-        toggleActions: 'play none none reverse',
-      },
-    })
+    const ctx = gsap.context(() => {
+      gsap.fromTo(element, anim.from, {
+        ...anim.to,
+        duration,
+        delay,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: element,
+          start,
+          markers,
+          toggleActions: 'play none none reverse',
+        },
+      })
+    }, element)
 
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
-    }
-  }, [options])
+    return () => ctx.revert()
+  }, [animation, duration, delay, start, markers])
 
   return ref
 }
@@ -76,20 +73,20 @@ export const useParallax = (speed = 0.5) => {
     const element = ref.current
     if (!element) return
 
-    gsap.to(element, {
-      yPercent: speed * 100,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: element,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: true,
-      },
-    })
+    const ctx = gsap.context(() => {
+      gsap.to(element, {
+        yPercent: speed * 100,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: element,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      })
+    }, element)
 
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
-    }
+    return () => ctx.revert()
   }, [speed])
 
   return ref

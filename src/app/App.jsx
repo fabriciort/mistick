@@ -1,19 +1,8 @@
 import { useState, useEffect } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ScrollTrigger } from '@/shared/lib/gsap'
 
-import Header from './components/Header'
-import Hero from './components/Hero'
-import About from './components/About'
-import Services from './components/Services'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
-import Story from './components/Story'
-import WhatsAppButton from './components/WhatsAppButton'
-import Loader from './components/Loader'
-
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger)
+import HomePage from '@/pages/HomePage'
+import Loader from '@/ui/organisms/Loader'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -44,16 +33,7 @@ function App() {
       {isLoading && <Loader onComplete={handleLoadComplete} />}
 
       <div className={`transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
-        <Header />
-        <main>
-          <Hero isLoading={isLoading} />
-          <About />
-          <Story />
-          <Services />
-          <Contact />
-        </main>
-        <Footer />
-        <WhatsAppButton />
+        <HomePage isLoading={isLoading} />
       </div>
     </>
   )

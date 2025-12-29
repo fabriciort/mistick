@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
+import { gsap } from '@/shared/lib/gsap'
 
 export default function MistickLogo({ className = "w-full max-w-lg", delay = 0, variant = "dark" }) {
     const containerRef = useRef(null)
@@ -17,6 +17,7 @@ export default function MistickLogo({ className = "w-full max-w-lg", delay = 0, 
     }
 
     const currentColors = colors[variant] || colors.dark
+    const stroke = currentColors.stroke
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -28,7 +29,7 @@ export default function MistickLogo({ className = "w-full max-w-lg", delay = 0, 
                     strokeDasharray: length,
                     strokeDashoffset: length,
                     fillOpacity: 0,
-                    stroke: currentColors.stroke,
+                    stroke,
                     strokeWidth: 2
                 })
             })
@@ -54,7 +55,7 @@ export default function MistickLogo({ className = "w-full max-w-lg", delay = 0, 
         }, containerRef)
 
         return () => ctx.revert()
-    }, [delay, currentColors])
+    }, [delay, stroke])
 
     return (
         <div ref={containerRef} className={className}>

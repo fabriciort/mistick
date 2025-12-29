@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
-import { openWhatsApp } from '../utils/whatsapp'
+import { gsap } from '@/shared/lib/gsap'
+import { openWhatsApp } from '@/shared/utils/whatsapp'
 
 const WhatsAppButton = () => {
   const buttonRef = useRef(null)

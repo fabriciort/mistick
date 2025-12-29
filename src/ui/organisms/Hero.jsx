@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import AnimatedText from './AnimatedText'
-import MistickLogo from './MistickLogo'
-import { openWhatsApp } from '../utils/whatsapp'
+import { gsap } from '@/shared/lib/gsap'
+import AnimatedText from '@/ui/atoms/AnimatedText'
+import MistickLogo from '@/ui/atoms/MistickLogo'
+import { openWhatsApp } from '@/shared/utils/whatsapp'
 
 // Import hero background image
-import heroBg from '../assets/images/hero-bg.jpg'
+import heroBg from '@/assets/images/hero-bg.jpg'
 
 const Hero = ({ isLoading }) => {
   const heroRef = useRef(null)

@@ -1,8 +1,5 @@
 import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import { gsap } from '@/shared/lib/gsap'
 
 const AnimatedText = ({
   children,
@@ -11,27 +8,27 @@ const AnimatedText = ({
   stagger = 0.05,
   duration = 0.8,
   delay = 0,
-  as: Component = 'div',
+  as: asProp = 'div',
   triggerOnScroll = true,
 }) => {
+  const Component = asProp
   const containerRef = useRef(null)
 
   useEffect(() => {
     const container = containerRef.current
     if (!container) return
 
+    const originalText = container.textContent ?? ''
     let elements = []
 
     if (animation === 'words') {
-      const text = container.textContent
-      container.innerHTML = text
+      container.innerHTML = originalText
         .split(' ')
         .map(word => `<span class="inline-block overflow-hidden"><span class="inline-block">${word}</span></span>`)
         .join(' ')
       elements = container.querySelectorAll('span > span')
     } else if (animation === 'chars') {
-      const text = container.textContent
-      container.innerHTML = text
+      container.innerHTML = originalText
         .split('')
         .map(char => char === ' ' ? ' ' : `<span class="inline-block overflow-hidden"><span class="inline-block">${char}</span></span>`)
         .join('')
@@ -40,50 +37,30 @@ const AnimatedText = ({
       elements = [container]
     }
 
-    const animationConfig = {
-      y: animation === 'lines' ? 40 : 60,
-      opacity: 0,
-      duration,
-      stagger,
-      delay,
-      ease: 'power3.out',
-    }
+    const ctx = gsap.context(() => {
+      const from = { y: animation === 'lines' ? 40 : 60, opacity: 0 }
+      const base = { y: 0, opacity: 1, duration, stagger, delay, ease: 'power3.out' }
 
-    if (triggerOnScroll) {
-      gsap.fromTo(elements,
-        { y: animationConfig.y, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration,
-          stagger,
-          delay,
-          ease: 'power3.out',
+      if (triggerOnScroll) {
+        gsap.fromTo(elements, from, {
+          ...base,
           scrollTrigger: {
             trigger: container,
             start: 'top 85%',
             toggleActions: 'play none none reverse',
           },
-        }
-      )
-    } else {
-      gsap.fromTo(elements,
-        { y: animationConfig.y, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration,
-          stagger,
-          delay,
-          ease: 'power3.out',
-        }
-      )
-    }
+        })
+      } else {
+        gsap.fromTo(elements, from, base)
+      }
+    }, container)
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+      ctx.revert()
+      // We mutate `innerHTML` above; restore the original content on cleanup.
+      container.textContent = originalText
     }
-  }, [animation, stagger, duration, delay, triggerOnScroll])
+  }, [animation, stagger, duration, delay, triggerOnScroll, children])
 
   return (
     <Component ref={containerRef} className={`${className} [&>span]:inline-block`}>

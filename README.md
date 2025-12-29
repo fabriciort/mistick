@@ -26,6 +26,22 @@ Site de cartão de visita online moderno e elegante para **Tina Ribéro** - Asse
 - **GSAP** - Animações avançadas
 - **ScrollTrigger** - Animações baseadas em scroll
 
+## 🧱 Arquitetura (Atomic Design)
+
+Este projeto foi organizado para escalar com **Atomic Design**, separando responsabilidades e reduzindo acoplamento:
+
+- **`src/ui/atoms/`**: primitivos visuais reutilizáveis (ex.: `AnimatedText`, `MistickLogo`)
+- **`src/ui/molecules/`**: composições pequenas e interativas (ex.: `WhatsAppButton`)
+- **`src/ui/organisms/`**: seções/componentes completos da página (ex.: `Header`, `Hero`, `Services`)
+- **`src/templates/`**: layout/shell de páginas (ex.: `SiteTemplate`)
+- **`src/pages/`**: páginas (ex.: `HomePage`)
+- **`src/app/`**: entrypoint de app/lifecycle (ex.: `App`)
+- **`src/shared/`**: utilitários e infra compartilhada (ex.: `shared/lib/gsap`, `shared/utils/whatsapp`)
+
+### Alias de imports
+
+O alias **`@`** aponta para `src/` (configurado em `vite.config.js`) para evitar caminhos relativos longos.
+
 ## 📦 Instalação
 
 ```bash
@@ -56,7 +72,7 @@ npm run preview
 Para configurar o número do WhatsApp, edite o arquivo:
 
 ```javascript
-// src/utils/whatsapp.js
+// src/shared/utils/whatsapp.js
 const WHATSAPP_NUMBER = '5511999999999' // Substitua pelo número real
 ```
 
