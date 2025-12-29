@@ -1,0 +1,2 @@
+export const LOADER_MIN_DURATION_MS = 2500
+
